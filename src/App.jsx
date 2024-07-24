@@ -2,7 +2,7 @@ import * as React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import { Box } from "@mui/joy";
-import Layout from "./components/Layout/Layout";
+import Layout from "./Layout/Layout";
 
 function App() {
   return (
