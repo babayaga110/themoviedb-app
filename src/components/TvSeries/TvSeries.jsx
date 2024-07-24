@@ -1,0 +1,74 @@
+import { Typography, Box } from "@mui/joy";
+import * as React from "react";
+import TrendingCard from "../Cards/MainCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
+import api from "../../axios/FetchAxios";
+
+export default function TvSeries() {
+  const [topRated, setTopRated] = React.useState([]);
+  
+  React.useEffect(() => {
+    const fetchTopRated = async () => {
+      try {
+        const response = await api.get("/tv/airing_today",{
+          params: {language: 'en-US'},
+        });
+        setTopRated(response.data.results);
+        console.log(response.data.results);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchTopRated();
+  }, []);
+
+  return (
+    <Box>
+      <Typography
+        level="title-lg"
+        sx={{
+          color: "#fff",
+          fontWeight: "normal",
+          mb: 2,
+        }}
+        gutterBottom
+      >
+        TV Series
+      </Typography>
+
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={8}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+        }}
+        modules={[Autoplay]}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+      >
+        {topRated?.map((item, index) => (
+          <SwiperSlide key={index}>
+            <TrendingCard key={index} item={item} type="TV"/>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </Box>
+  );
+}

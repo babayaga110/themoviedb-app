@@ -1,0 +1,18 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  background-color: #10141F;
+  color: #fff;
+
+}
+
+.text-white{
+  color: #fff;
+}
+.text-red{
+  color: #FD4643;
+}
